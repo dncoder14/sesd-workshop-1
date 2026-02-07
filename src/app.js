@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { AppError } from './utils/AppError.js';
-// Import routes here later
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
+
+app.use('/api/users', userRoutes);
 
 // 404 Handler
 app.all('*', (req, res, next) => {
