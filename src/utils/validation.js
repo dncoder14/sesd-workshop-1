@@ -12,6 +12,15 @@ export const loginSchema = Joi.object({
     password: Joi.string().required(),
 });
 
+export const productSchema = Joi.object({
+    name: Joi.string().required(),
+    description: Joi.string().required(),
+    price: Joi.number().required(),
+    countInStock: Joi.number().required(),
+    imageUrl: Joi.string().required(),
+    category: Joi.string().required(),
+});
+
 export const validate = (schema, data) => {
     const { error } = schema.validate(data);
     if (error) {
