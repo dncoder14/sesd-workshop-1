@@ -20,3 +20,21 @@ The project follows a localized layered architecture:
 - JWT Authentication
 - JOI Validation
 - ES Modules
+
+## Installation
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file (see `.env.example`).
+4. Run the seeder to import sample data:
+   ```bash
+   npm run data:import
+   ```
+5. Start the server:
+   ```bash
+   npm run dev
+   ```
+
