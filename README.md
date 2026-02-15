@@ -1,3 +1,22 @@
-# SESD Project
+# OOP E-commerce API
 
-This is the SESD Project repository.
+A production-ready RESTful API for an E-commerce platform built with Node.js, Express, and MongoDB, following Object-Oriented Programming (OOP) principles and specific layered architecture.
+
+## Architecture
+
+The project follows a localized layered architecture:
+`Routes` -> `Controllers` -> `Services` -> `Repositories` -> `Database`
+
+- **Controllers**: Handle HTTP requests/responses.
+- **Services**: Contain business logic.
+- **Repositories**: Handle database interactions.
+- **Models**: Database schemas.
+
+## Tech Stack
+
+- Node.js
+- Express.js
+- MongoDB & Mongoose
+- JWT Authentication
+- JOI Validation
+- ES Modules
