@@ -38,3 +38,25 @@ The project follows a localized layered architecture:
    npm run dev
    ```
 
+## API Endpoints
+
+### Users
+- `POST /api/users/register` - Register a new user
+- `POST /api/users/login` - Login user & get token
+- `GET /api/users/profile` - Get user profile (Protected)
+- `GET /api/users` - Get all users (Admin)
+
+### Products
+- `GET /api/products` - Get all products (Pagination, Search, Filter)
+  - Query Params: `pageNumber`, `limit`, `keyword`, `sortBy`, `minPrice`, `maxPrice`, `category`
+- `GET /api/products/:id` - Get single product
+- `POST /api/products` - Create product (Admin)
+- `PUT /api/products/:id` - Update product (Admin)
+- `DELETE /api/products/:id` - Delete product (Admin)
+
+### Orders
+- `POST /api/orders` - Create new order (Protected)
+- `GET /api/orders/myorders` - Get logged in user orders (Protected)
+- `GET /api/orders/:id` - Get order by ID (Protected)
+
+
