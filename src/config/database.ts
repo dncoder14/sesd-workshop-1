@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { config } from './config.js';
+import { config } from './config';
 
 export class Database {
-    static async connect() {
+    static async connect(): Promise<void> {
         try {
             await mongoose.connect(config.mongoUri);
             console.log('Database connected successfully');
@@ -12,7 +12,7 @@ export class Database {
         }
     }
 
-    static async disconnect() {
+    static async disconnect(): Promise<void> {
         await mongoose.disconnect();
     }
 }

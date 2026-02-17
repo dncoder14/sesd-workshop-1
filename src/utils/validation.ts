@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi, { Schema } from 'joi';
 
 export const registerSchema = Joi.object({
     name: Joi.string().required(),
@@ -43,7 +43,7 @@ export const orderSchema = Joi.object({
     totalPrice: Joi.number().required(),
 });
 
-export const validate = (schema, data) => {
+export const validate = (schema: Schema, data: any): void => {
     const { error } = schema.validate(data);
     if (error) {
         throw new Error(error.details[0].message);
