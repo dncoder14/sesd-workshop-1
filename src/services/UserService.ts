@@ -1,21 +1,24 @@
 import jwt from 'jsonwebtoken';
-import { UserRepository } from '../repositories/UserRepository.js';
-import { AppError } from '../utils/AppError.js';
-import { config } from '../config/config.js';
-import { validate, registerSchema, loginSchema } from '../utils/validation.js';
+import { UserRepository } from '../repositories/UserRepository';
+import { AppError } from '../utils/AppError';
+import { config } from '../config/config';
+import { validate, registerSchema, loginSchema } from '../utils/validation';
+import { IUser } from '../models/User';
 
 export class UserService {
+    private userRepository: UserRepository;
+
     constructor() {
         this.userRepository = new UserRepository();
     }
 
-    generateToken(id) {
+    generateToken(id: string): string {
         return jwt.sign({ id }, config.jwtSecret, {
             expiresIn: '30d',
         });
     }
 
-    async registerUser(data) {
+    async registerUser(data: any) {
         validate(registerSchema, data);
 
         const userExists = await this.userRepository.findByEmail(data.email);
@@ -24,7 +27,7 @@ export class UserService {
         }
 
         const user = await this.userRepository.create(data);
-        const token = this.generateToken(user._id);
+        const token = this.generateToken(user._id as string);
 
         return {
             _id: user._id,
@@ -35,12 +38,12 @@ export class UserService {
         };
     }
 
-    async loginUser(data) {
+    async loginUser(data: any) {
         validate(loginSchema, data);
 
         const user = await this.userRepository.findByEmail(data.email);
         if (user && (await user.matchPassword(data.password))) {
-            const token = this.generateToken(user._id);
+            const token = this.generateToken(user._id as string);
             return {
                 _id: user._id,
                 name: user.name,
@@ -53,7 +56,7 @@ export class UserService {
         }
     }
 
-    async getUserById(id) {
+    async getUserById(id: string): Promise<IUser> {
         const user = await this.userRepository.findById(id);
         if (!user) {
             throw new AppError('User not found', 404);
@@ -61,8 +64,7 @@ export class UserService {
         return user;
     }
 
-    async getAllUsers(query) {
-        // Basic implementation of getAll with pagination logic could go here or Repository
+    async getAllUsers(query: any): Promise<IUser[]> {
         return await this.userRepository.findAll(query);
     }
 }

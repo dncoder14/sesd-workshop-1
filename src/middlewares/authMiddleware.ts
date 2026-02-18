@@ -1,10 +1,15 @@
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/User.js';
-import { AppError } from '../utils/AppError.js';
-import { asyncHandler } from '../utils/asyncHandler.js';
-import { config } from '../config/config.js';
+import { User } from '../models/User';
+import { AppError } from '../utils/AppError';
+import { asyncHandler } from '../utils/asyncHandler';
+import { config } from '../config/config';
 
-export const protect = asyncHandler(async (req, res, next) => {
+interface JwtPayload {
+    id: string;
+}
+
+export const protect = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     let token;
 
     if (
@@ -13,7 +18,7 @@ export const protect = asyncHandler(async (req, res, next) => {
     ) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            const decoded = jwt.verify(token, config.jwtSecret);
+            const decoded = jwt.verify(token, config.jwtSecret) as JwtPayload;
 
             req.user = await User.findById(decoded.id).select('-password');
             next();
@@ -28,7 +33,7 @@ export const protect = asyncHandler(async (req, res, next) => {
     }
 });
 
-export const admin = (req, res, next) => {
+export const admin = (req: Request, res: Response, next: NextFunction) => {
     if (req.user && req.user.role === 'admin') {
         next();
     } else {

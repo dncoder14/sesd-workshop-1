@@ -1,6 +1,8 @@
-import { config } from '../config/config.js';
+import { Request, Response, NextFunction } from 'express';
+import { config } from '../config/config';
+import { AppError } from '../utils/AppError';
 
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     err.statusCode = err.statusCode || 500;
     err.status = err.status || 'error';
 

@@ -1,13 +1,17 @@
-import { ProductRepository } from '../repositories/ProductRepository.js';
-import { AppError } from '../utils/AppError.js';
-import { validate, productSchema } from '../utils/validation.js';
+import { ProductRepository } from '../repositories/ProductRepository';
+import { AppError } from '../utils/AppError';
+import { validate, productSchema } from '../utils/validation';
+import { IProduct } from '../models/Product';
+import { FilterQuery } from 'mongoose';
 
 export class ProductService {
+    private productRepository: ProductRepository;
+
     constructor() {
         this.productRepository = new ProductRepository();
     }
 
-    async getAllProducts(queryParams) {
+    async getAllProducts(queryParams: any) {
         const {
             keyword,
             pageNumber,
@@ -20,7 +24,7 @@ export class ProductService {
         } = queryParams;
 
         // Build Logic
-        let filter = {};
+        let filter: FilterQuery<IProduct> = {};
 
         // Search
         if (keyword) {
@@ -43,7 +47,7 @@ export class ProductService {
         }
 
         // Sort
-        let sort = {};
+        let sort: any = {};
         if (sortBy) {
             sort[sortBy] = ordering === 'desc' ? -1 : 1;
         } else {
@@ -66,7 +70,7 @@ export class ProductService {
         };
     }
 
-    async getProductById(id) {
+    async getProductById(id: string): Promise<IProduct> {
         const product = await this.productRepository.findById(id);
         if (!product) {
             throw new AppError('Product not found', 404);
@@ -74,15 +78,12 @@ export class ProductService {
         return product;
     }
 
-    async createProduct(data) {
+    async createProduct(data: any): Promise<IProduct> {
         validate(productSchema, data);
         return await this.productRepository.create(data);
     }
 
-    async updateProduct(id, data) {
-        // Validate data partially or full? 
-        // Usually updates might be partial. 
-        // For now simple pass-through except check existence.
+    async updateProduct(id: string, data: any): Promise<IProduct | null> {
         const product = await this.productRepository.findById(id);
         if (!product) {
             throw new AppError('Product not found', 404);
@@ -90,7 +91,7 @@ export class ProductService {
         return await this.productRepository.updateById(id, data);
     }
 
-    async deleteProduct(id) {
+    async deleteProduct(id: string): Promise<IProduct | null> {
         const product = await this.productRepository.findById(id);
         if (!product) {
             throw new AppError('Product not found', 404);
