@@ -1,10 +1,8 @@
-import bcrypt from 'bcryptjs';
-
 const users = [
     {
         name: 'Admin User',
         email: 'admin@example.com',
-        password: 'password123', // Will be hashed by seeder or model
+        password: 'password123',
         role: 'admin',
     },
     {

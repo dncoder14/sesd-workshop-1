@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import users from './data/users.js';
-import products from './data/products.js';
-import { User } from './models/User.js';
-import { Product } from './models/Product.js';
-import { Order } from './models/Order.js';
-import { Database } from './config/database.js';
+import users from './data/users';
+import products from './data/products';
+import { User } from './models/User';
+import { Product } from './models/Product';
+import { Order } from './models/Order';
+import { Database } from './config/database';
 
 dotenv.config();
 
@@ -20,6 +20,8 @@ const importData = async () => {
         const createdUsers = await User.create(users);
 
         // Optional: Assign admin check if products need user
+        // For now we just dump logical data
+
         console.log('Data Imported!');
         await Product.insertMany(products);
 
