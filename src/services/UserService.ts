@@ -27,7 +27,7 @@ export class UserService {
         }
 
         const user = await this.userRepository.create(data);
-        const token = this.generateToken(user._id as string);
+        const token = this.generateToken(user._id.toString());
 
         return {
             _id: user._id,
@@ -43,7 +43,7 @@ export class UserService {
 
         const user = await this.userRepository.findByEmail(data.email);
         if (user && (await user.matchPassword(data.password))) {
-            const token = this.generateToken(user._id as string);
+            const token = this.generateToken(user._id.toString());
             return {
                 _id: user._id,
                 name: user.name,

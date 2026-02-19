@@ -7,7 +7,7 @@ export class OrderRepository extends BaseRepository<IOrder> {
     }
 
     async findByUserId(userId: string): Promise<IOrder[]> {
-        return await this.model.find({ user: userId });
+        return await this.model.find({ user: userId } as any);
     }
 
     // Override findById to populate user
