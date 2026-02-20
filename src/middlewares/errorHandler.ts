@@ -14,7 +14,7 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
             stack: err.stack,
         });
     } else {
-        // Production: don't leak stack details
+
         if (err.isOperational) {
             res.status(err.statusCode).json({
                 status: err.status,

@@ -42,7 +42,7 @@ const userSchema = new Schema<IUser>(
     { timestamps: true }
 );
 
-// Encrypt password using bcrypt
+
 userSchema.pre('save', async function () {
     if (!this.isModified('password')) {
         return;
@@ -53,7 +53,6 @@ userSchema.pre('save', async function () {
     }
 });
 
-// Match user entered password to hashed password in database
 userSchema.methods.matchPassword = async function (enteredPassword: string): Promise<boolean> {
     if (!this.password) return false;
     return await bcrypt.compare(enteredPassword, this.password);

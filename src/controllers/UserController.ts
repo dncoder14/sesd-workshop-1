@@ -4,7 +4,7 @@ import { asyncHandler } from '../utils/asyncHandler';
 
 const userService = new UserService();
 
-// Extend Request interface to include user
+
 declare global {
     namespace Express {
         interface Request {

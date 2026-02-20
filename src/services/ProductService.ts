@@ -23,10 +23,10 @@ export class ProductService {
             category
         } = queryParams;
 
-        // Build Logic
+
         let filter: any = {};
 
-        // Search
+
         if (keyword) {
             filter.$or = [
                 { name: { $regex: keyword, $options: 'i' } },
@@ -34,19 +34,19 @@ export class ProductService {
             ];
         }
 
-        // Filter by Category
+
         if (category) {
             filter.category = category;
         }
 
-        // Filter by Price
+
         if (minPrice || maxPrice) {
             filter.price = {};
             if (minPrice) filter.price.$gte = Number(minPrice);
             if (maxPrice) filter.price.$lte = Number(maxPrice);
         }
 
-        // Sort
+
         let sort: any = {};
         if (sortBy) {
             sort[sortBy] = ordering === 'desc' ? -1 : 1;
@@ -54,7 +54,7 @@ export class ProductService {
             sort = { createdAt: -1 };
         }
 
-        // Pagination
+
         const page = Number(pageNumber) || 1;
         const pageSize = Number(limit) || 10;
         const skip = pageSize * (page - 1);

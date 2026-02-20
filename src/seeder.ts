@@ -19,8 +19,7 @@ const importData = async () => {
 
         const createdUsers = await User.create(users);
 
-        // Optional: Assign admin check if products need user
-        // For now we just dump logical data
+
 
         console.log('Data Imported!');
         await Product.insertMany(products);
