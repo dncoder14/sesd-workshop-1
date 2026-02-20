@@ -2,7 +2,7 @@ import { ProductRepository } from '../repositories/ProductRepository';
 import { AppError } from '../utils/AppError';
 import { validate, productSchema } from '../utils/validation';
 import { IProduct } from '../models/Product';
-import { FilterQuery } from 'mongoose';
+import mongoose from 'mongoose';
 
 export class ProductService {
     private productRepository: ProductRepository;
@@ -24,7 +24,7 @@ export class ProductService {
         } = queryParams;
 
         // Build Logic
-        let filter: FilterQuery<IProduct> = {};
+        let filter: any = {};
 
         // Search
         if (keyword) {

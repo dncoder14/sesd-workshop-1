@@ -1,4 +1,4 @@
-import { Model, Document, FilterQuery, UpdateQuery } from 'mongoose';
+import mongoose, { Model, Document } from 'mongoose';
 
 export class BaseRepository<T extends Document> {
     protected model: Model<T>;
@@ -16,7 +16,7 @@ export class BaseRepository<T extends Document> {
     }
 
     async findAll(
-        filter: FilterQuery<T> = {},
+        filter: any = {},
         sort: Record<string, any> = {},
         skip: number = 0,
         limit: number = 10
@@ -24,11 +24,11 @@ export class BaseRepository<T extends Document> {
         return await this.model.find(filter).sort(sort).skip(skip).limit(limit);
     }
 
-    async count(filter: FilterQuery<T> = {}): Promise<number> {
+    async count(filter: any = {}): Promise<number> {
         return await this.model.countDocuments(filter);
     }
 
-    async updateById(id: string, data: UpdateQuery<T>): Promise<T | null> {
+    async updateById(id: string, data: mongoose.UpdateQuery<T>): Promise<T | null> {
         return await this.model.findByIdAndUpdate(id, data, {
             new: true,
             runValidators: true,
@@ -39,7 +39,7 @@ export class BaseRepository<T extends Document> {
         return await this.model.findByIdAndDelete(id);
     }
 
-    async findOne(filter: FilterQuery<T>): Promise<T | null> {
+    async findOne(filter: any): Promise<T | null> {
         return await this.model.findOne(filter);
     }
 }
