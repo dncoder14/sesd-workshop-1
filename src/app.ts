@@ -27,7 +27,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
 
-app.all('*', (req: Request, res: Response, next: NextFunction) => {
+app.all(/(.*)/, (req: Request, res: Response, next: NextFunction) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 

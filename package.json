@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Production-ready Node.js Express E-commerce API",
   "main": "src/server.js",
-  "type": "module",
   "scripts": {
     "start": "ts-node src/server.ts",
     "dev": "nodemon src/server.ts",
